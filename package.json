@@ -1,0 +1,25 @@
+{
+  "name": "instagram-follower-collector",
+  "version": "1.0.0",
+  "description": "A nodejs automation script the can compile a list of account followers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benAkehurst/instagram-follower-collector.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benAkehurst/instagram-follower-collector/issues"
+  },
+  "homepage": "https://github.com/benAkehurst/instagram-follower-collector#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.0.0",
+    "puppeteer": "^1.19.0"
+  }
+}
