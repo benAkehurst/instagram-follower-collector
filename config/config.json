@@ -1,0 +1,11 @@
+{
+  "selectors": {
+    "follower_number": "span .g47SY",
+    "switch_button": ".izU2O a",
+    "login_button": "button[type=\"submit\"]",
+    "username_field": "input[type=\"text\"]",
+    "password_field": "input[type=\"password\"]",
+    "followers_button": ".Y8-fY a",
+    "likes_button": ".Nm9Fw button"
+  }
+}
