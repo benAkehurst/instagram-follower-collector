@@ -16,24 +16,24 @@ async function getFollowerCount() {
   console.log('Accessing site for follower count');
   puppeteer
     .launch()
-    .then(function(browser) {
+    .then(function (browser) {
       return browser.newPage();
     })
-    .then(function(page) {
-      return page.goto(url).then(function() {
+    .then(function (page) {
+      return page.goto(url).then(function () {
         return page.content();
       });
     })
-    .then(function(html) {
+    .then(function (html) {
       let arr = [];
       console.log('Scraping for follower count');
-      $('span.g47SY ', html).each(function() {
+      $('span.g47SY ', html).each(function () {
         arr.push($(this).text());
       });
       followerCount = parseInt(arr[1].replace(',', ''));
       console.log(`Number of followers: ${followerCount}`);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err);
     });
 }
@@ -60,26 +60,21 @@ async function scrapeInfiniteScrollItems(
   let items = [];
   // Next line returns undefined
   let x;
-  try {
-    while (items.length < followersTargetCount) {
-      items = await page.evaluate(extractFollowers);
-      childToSelect = items.length;
-      console.log(`scrolling though follower number: ${childToSelect}`);
-      await page.hover(`div.isgrP > ul > div > li:nth-child(${childToSelect})`);
-    }
-    items.length = followersTargetCount;
-    fs.writeFileSync(`./data/followers.json`, JSON.stringify(items));
-    console.log(
-      `${items.length} followers usernames writen to JSON file in data folder`
-    );
-    browser.close();
-    console.time('Account Scaper');
-  } catch (e) {
-    console.log(e);
+  await page.waitFor(1500);
+  while (items.length < followersTargetCount) {
+    items = await page.evaluate(extractFollowers);
+    childToSelect = items.length;
+    await page.hover(`div.isgrP > ul > div > li:nth-child(${childToSelect})`);
+    console.log(`Scrolling though accounts: ${items.length}`);
   }
+  items.length = followersTargetCount;
+  fs.writeFileSync(`./data/followers.json`, JSON.stringify(items));
+  console.log('Scraping finished, please see followers.json in data folder');
+  console.time('Account Scraper');
+  browser.close();
 }
 
-let getFollowers = async function() {
+let getFollowers = async function () {
   console.time('Account Scaper');
   /**
    * Calls the function to get follower count
@@ -87,9 +82,10 @@ let getFollowers = async function() {
   getFollowerCount();
 
   console.log('Launching Follower List generator');
+
   // set up Puppeteer
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ['--no-sandbox']
   });
 
@@ -103,6 +99,7 @@ let getFollowers = async function() {
   await page.click(cnf.selectors.switch_button);
   await page.waitFor(2500);
   console.log('Instagram loaded');
+
   // Login
   await page.click(cnf.selectors.username_field);
   await page.keyboard.type(process.env.USERNAME, { delay: 100 });
@@ -111,12 +108,13 @@ let getFollowers = async function() {
   await page.click(cnf.selectors.login_button);
   await page.waitForNavigation();
   console.log('Logging in');
-  console.log('Logged in');
   await page.waitFor(2500);
+  console.log('Logged in');
 
-  console.log('Going to requested account');
   // Go to requested page
+  console.log('Going to requested account');
   await page.goto(`https://www.instagram.com/${process.env.URL_TO_SCRAPE}/`);
+
   // Click followers button
   console.log('Clicking on followers button');
   await page.waitFor(3000);
@@ -125,7 +123,6 @@ let getFollowers = async function() {
   await page
     .hover('div.pbNvD.fPMEg.HYpXt')
     .then(() => {
-      console.log('Got to step 1');
       console.log('Scrolling though followers');
       scrapeInfiniteScrollItems(page, extractFollowers, followerCount, browser);
     })
