@@ -82,6 +82,7 @@ async function scrapeInfiniteScrollItems(
 
 let getFollowers = async function() {
   console.time('Account Scaper');
+
   /**
    * Calls the function to get follower count
    */
@@ -90,7 +91,7 @@ let getFollowers = async function() {
   console.log('Launching Follower List generator');
   // set up Puppeteer
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ['--no-sandbox']
   });
 
@@ -128,7 +129,12 @@ let getFollowers = async function() {
     .then(() => {
       console.log('Got to step 1');
       console.log('Scrolling though followers');
-      scrapeInfiniteScrollItems(page, extractFollowers, followerCount, browser);
+      scrapeInfiniteScrollItems(
+        page,
+        extractFollowers,
+        followerCount,
+        browser
+      );
     })
     .catch(err => {
       console.log(err);
