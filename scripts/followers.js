@@ -73,6 +73,7 @@ async function scrapeInfiniteScrollItems(
       `${items.length} followers usernames writen to JSON file in data folder`
     );
     browser.close();
+    process.exit(0);
     console.time('Account Scaper');
   } catch (e) {
     console.log(e);
