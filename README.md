@@ -1,6 +1,6 @@
 # Instagram Follower Collector
 
-[![Please](https://img.shields.io/badge/Please-buy_me_a_coffee-brightgreen.svg)](https://www.buymeacoffee.com/OwATNhIPH)
+[![Please](https://img.shields.io/badge/please-buy%20me%20a%20coffee-green)](https://www.buymeacoffee.com/OwATNhIPH)
 
 ## TL:DR
 
@@ -24,13 +24,13 @@ URL_TO_SCRAPE=<The suffix of the profile that you want to scrape>
 ### Benchmark times
 
 - Coming soon...
-- 10 followers - 
-- 100 followers - 
-- 1000 followers - 
-- 5000 followers - 
-- 10,000 followers - 
-- 25,000 followers - 
-- 25k plus followers... - 
+- 10 followers
+- 100 followers
+- 1000 followers
+- 5000 followers
+- 10,000 followers
+- 25,000 followers
+- 25k plus followers...
 
 ### Todo List
 
