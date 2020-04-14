@@ -1,7 +1,5 @@
 # Instagram Follower Collector
 
-[![Please](https://img.shields.io/badge/please-buy%20me%20a%20coffee-green)](https://www.buymeacoffee.com/OwATNhIPH)
-
 ## TL:DR
 
 Instagram Follower Collector is a nodejs automation script, using puppeteer, that can compile a list of account followers.
